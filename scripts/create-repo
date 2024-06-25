@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -ex
+
+aws ecr create-repository --repository-name epikinetics --image-scanning-configuration scanOnPush=true

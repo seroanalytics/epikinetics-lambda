@@ -1,0 +1,3 @@
+IMAGE_NAME=epikinetics
+REGISTRY_ID=$(aws ecr describe-registry | grep -Po '"registryId": *"\K[^"]+')
+URI=$REGISTRY_ID.dkr.ecr.us-east-1.amazonaws.com
