@@ -14,13 +14,18 @@ ENV PATH="${PATH}:/opt/R/${R_VERSION}/bin/"
 # System requirements for R packages
 RUN yum -y install openssl-devel
 
-RUN Rscript -e "install.packages(c('remotes'), repos = 'https://packagemanager.rstudio.com/all/__linux__/centos7/latest')"
-RUN Rscript -e "remotes::install_github('mdneuzerling/lambdr')"
-RUN Rscript -e "remotes::install_github('seroanalytics/epikinetics')"
-RUN Rscript -e 'install.packages("cmdstanr", repos = c("https://stan-dev.r-universe.dev"))'
-RUN Rscript -e "cmdstanr::install_cmdstan()"
-
 RUN mkdir /lambda
+RUN mkdir /lambda/.cmdstan
+
+RUN Rscript -e "install.packages('remotes', repos = 'https://packagemanager.rstudio.com/all/__linux__/centos7/latest')"
+RUN Rscript -e "remotes::install_github('mdneuzerling/lambdr')"
+RUN Rscript -e "install.packages('cmdstanr', repos = c('https://stan-dev.r-universe.dev', 'https://packagemanager.rstudio.com/all/__linux__/centos7/latest'))"
+RUN Rscript -e "cmdstanr::install_cmdstan(dir = '/lambda/.cmdstan', version = '2.35.0')"
+RUN Rscript -e "cmdstanr::set_cmdstan_path(path = '/lambda/.cmdstan/cmdstan-2.35.0')"
+
+ENV CMDSTAN="/lambda/.cmdstan/cmdstan-2.35.0"
+RUN Rscript -e "remotes::install_github('seroanalytics/epikinetics')"
+
 COPY runtime.R /lambda
 RUN chmod 755 -R /lambda
 
