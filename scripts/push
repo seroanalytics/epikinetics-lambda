@@ -6,5 +6,5 @@ HERE=$(realpath  "$(dirname $0)")
 
 aws ecr get-login-password | docker login --username AWS --password-stdin $URI
 
-docker tag epikinetics:latest $URI/$IMAGE_NAME:latest
+docker tag $IMAGE_NAME:latest $URI/$IMAGE_NAME:latest
 docker push $URI/$IMAGE_NAME:latest
