@@ -1,3 +1,5 @@
+This project has been archived. It turns out that AWS Lambdas have strict compute and time restrictions that make them unsuitable for model fitting. 
+
 # Lambda wrapper around the epikinetics R package
 [![Project Status: Concept – Minimal or no implementation has been done yet, or the repository is only intended to be a limited example, demo, or proof-of-concept.](https://www.repostatus.org/badges/latest/concept.svg)](https://www.repostatus.org/#concept)
 
